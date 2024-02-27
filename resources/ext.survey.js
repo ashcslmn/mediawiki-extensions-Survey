@@ -8,7 +8,6 @@
  */
 
 window.survey = new ( function ( survey ) {
-
 	this.log = function ( message ) {
 		if ( mw.config.get( 'wgSurveyDebug' ) ) {
 			if ( typeof mw === 'undefined' ) {
@@ -91,18 +90,20 @@ window.survey = new ( function ( survey ) {
 
 	this.question = new ( function () {
 
-		this.type = new ( function () {
-			this.TEXT = 0;
-			this.NUMBER = 1;
-			this.SELECT = 2;
-			this.RADIO = 3;
-			this.TEXTAREA = 4;
-			this.CHECK = 5;
-		}() )();
+		this.type = {
+			TEXT: 0,
+			NUMBER: 1,
+			SELECT: 2,
+			RADIO: 3,
+			TEXTAREA: 4,
+			CHECK: 5
+		};
+
 
 		this.typeHasAnswers = function ( t ) {
+			console.log('t', window.survey, t);
 			return $.inArray(
-				t, [ survey.question.type.RADIO, survey.question.type.SELECT ]
+				t, [ window.survey.question.type.RADIO, window.survey.question.type.SELECT ]
 			) !== -1;
 		};
 
@@ -131,7 +132,6 @@ window.survey = new ( function ( survey ) {
 
 			return survey.htmlSelect( options, parseInt( value ), attributes, onChangeCallback );
 		};
-
-	}() )();
-
-}( window.survey ) )();
+	})();
+	console.log('this', this.question);
+})(window.survey);
